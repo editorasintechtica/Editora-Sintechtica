@@ -23,4 +23,10 @@ Cadastre os títulos na tabela `books` pelo Table Editor do Supabase. O livro s�
 
 ## 5. Consultar propostas
 
-As propostas ficam na tabela `submissions`. Visitantes podem enviar, mas não conseguem consultar, editar ou excluir os dados.
+As novas propostas ficam na tabela `editorial_submissions`. Os originais e termos assinados ficam no bucket privado `editorial-submissions`, em **Storage**.
+
+Visitantes podem enviar propostas e arquivos, mas não conseguem consultar, editar ou excluir os registros. Para baixar um original, entre no painel autenticado do Supabase e abra o bucket privado.
+
+## Importante ao atualizar uma instalação existente
+
+Execute novamente todo o arquivo `supabase/01_estrutura_editora.sql`. Ele cria a nova tabela, o bucket privado e as políticas necessárias sem apagar os registros anteriores.

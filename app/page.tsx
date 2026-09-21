@@ -1,3 +1,4 @@
+export {default} from "./site";
 "use client";
 import {FormEvent,useEffect,useMemo,useState} from "react";
 import {ArrowRight,BookOpen,Check,ChevronLeft,ChevronRight,FileText,Search,Sparkles} from "lucide-react";
@@ -6,7 +7,7 @@ import {createSubmission,listPublishedBooks} from "@/lib/supabase";
 type Book={id:number;title:string;author:string;category:string;description:string;publicationYear:number;isbn:string;coverUrl:string;purchaseUrl:string}; type FormData=Record<string,string|boolean>;
 const initial:FormData={authorName:"",email:"",phone:"",biography:"",title:"",subtitle:"",category:"",synopsis:"",audience:"",differentiator:"",stage:"",wordCount:"",rightsConfirmed:false,coverAvailable:false,reviewerOne:"",reviewerTwo:"",notes:""};
 const steps=["Autoria","A obra","Viabilidade","Revisão"];
-export default function Home(){
+function LegacyHome(){
  const [books,setBooks]=useState<Book[]>([]),[query,setQuery]=useState(""),[step,setStep]=useState(0),[data,setData]=useState<FormData>(initial),[protocol,setProtocol]=useState(""),[error,setError]=useState(""),[sending,setSending]=useState(false);
  useEffect(()=>{listPublishedBooks().then(setBooks).catch(()=>setBooks([]))},[]);
  useEffect(()=>{const context=(document as Document&{modelContext?:{registerTool?:(tool:unknown,options?:unknown)=>void}}).modelContext;if(!context?.registerTool)return;const lifecycle=new AbortController();context.registerTool({name:"start_editorial_submission",title:"Iniciar proposta editorial",description:"Abre o formulário de submissão de uma obra.",inputSchema:{type:"object",properties:{},additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute:async()=>{document.querySelector("#publique")?.scrollIntoView({behavior:"smooth"});return{status:"form_opened"}}},{signal:lifecycle.signal});return()=>lifecycle.abort()},[]);
